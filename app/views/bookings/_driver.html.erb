@@ -1,0 +1,6 @@
+<div class="card-body">
+  <h5 class="card-title">Nombre: <%= @response["driver"]["name"] %></h5>
+  <h5 class="card-title">Placa: <%= @response["served_vehicle"]["plates"] %></h5>
+  <h5 class="card-title">Color: <%= @response["served_vehicle"]["color"] %></h5>
+  <h5 class="card-title">GPS: lat <%= @response["served_vehicle"]["loc_geojson"]["coordinates"][1] %>, lng <%= @response["served_vehicle"]["loc_geojson"]["coordinates"][0] %></h5>
+</div>

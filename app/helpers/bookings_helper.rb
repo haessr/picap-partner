@@ -9,7 +9,7 @@ module BookingsHelper
       when 0
         content_tag(:span, 'Buscando conductor', class: 'badge rounded-pill bg-warning text-dark')
       when 1
-        content_tag(:span, 'Conductor en camino', class: 'badge bg-light text-dark')
+        content_tag(:span, 'Conductor en camino', class: 'badge rounded-pill bg-primary')
       when 5
         content_tag(:span, 'Recogiendo paquete', class: 'badge bg-light text-dark')
       when 6

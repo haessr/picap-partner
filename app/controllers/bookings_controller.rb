@@ -33,7 +33,7 @@ class BookingsController < ApplicationController
 
     # binding.pry
     # redirect_to booking_url, id: params[:id]
-    redirect_to root_path
+    redirect_to root_path, notice: "Booking was cancelled"
   end
 
   # GET /bookings/new
@@ -52,13 +52,15 @@ class BookingsController < ApplicationController
       @response = Booking.create_booking(booking_options)
       @booking.log = @response
       @booking.picap_id = @response["_id"]
+      notice = "Booking was successfully created."
     rescue RestClient::Exception => exception
       @booking.log = exception.response
+      alert = exception.response
     end
 
     respond_to do |format|
       if @booking.save
-        format.html { redirect_to root_path, notice: "Booking was successfully created." }
+        format.html { redirect_to root_path, notice: notice, alert: alert }
         format.json { render :show, status: :created, location: @booking }
       else
         format.html { render :new, status: :unprocessable_entity }
