@@ -1,8 +1,8 @@
-<table>
+<table class="table">
   <thead>
     <tr>
-      <th>Picap</th>
-      <th>Reference</th>
+      <th>Generado</th>
+      <th>Referencia</th>
       <th>Log</th>
       <th colspan="3"></th>
     </tr>
@@ -11,9 +11,9 @@
   <tbody>
     <% @bookings.each do |booking| %>
       <tr>
-        <td><%= booking.picap_id %></td>
-        <td><%= booking.log %></td>
+        <td><%= booking.picap_id ? 'SI' : 'NO' %></td>
         <td><%= booking.reference %></td>
+        <td><%= booking.log.truncate(150, omission: '... (continued)') %></td>
         <td><%= link_to 'Destroy', booking, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>

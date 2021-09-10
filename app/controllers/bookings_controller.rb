@@ -14,6 +14,10 @@ class BookingsController < ApplicationController
     # binding.pry
   end
 
+  def local_records
+    @bookings = Booking.all
+  end
+
   # GET /bookings/1 or /bookings/1.json
   def show
     begin
