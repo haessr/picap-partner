@@ -13,7 +13,7 @@
             <h5 class="card-title">Destino: <%= @response["stops"][0]["address"] %></h5>
           <% else %>
             <% @response["stops"].each do |stop| %>
-              <h5 class="card-title"><%= @response["stops"][-1] == stop ? "Destino:" : "Parada:"  %> <%= stop["address"] %></h5>
+              <h5 class="card-title"><%= @response["stops"].last == stop ? "Destino:" : "Parada:"  %> <%= stop["address"] %></h5>
             <% end %>
           <% end %>
 

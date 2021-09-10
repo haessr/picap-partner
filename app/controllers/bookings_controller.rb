@@ -5,7 +5,7 @@ class BookingsController < ApplicationController
 
   # GET /bookings or /bookings.json
   def index
-    @bookings = Booking.all
+    # @bookings = Booking.all
     begin
       @response = Booking.get_bookings
     rescue RestClient::Exception => exception
