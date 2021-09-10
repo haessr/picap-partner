@@ -67,7 +67,7 @@ class Booking
                     },
                     reference: "Pedido 1",
                     counter_delivery: false,
-                    size_cd: 1
+                    size_cd: 0
                  }
               ]
            }

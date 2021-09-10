@@ -9,7 +9,14 @@
         </div>
         <div class="card-body">
           <h5 class="card-title">Origen: <%= @response["address"] %></h5>
-          <h5 class="card-title">Destino: <%= @response["stops"][0]["address"] %></h5>
+          <% if @response["stops"].length == 0 %>
+            <h5 class="card-title">Destino: <%= @response["stops"][0]["address"] %></h5>
+          <% else %>
+            <% @response["stops"].each do |stop| %>
+              <h5 class="card-title"><%= @response["stops"][-1] == stop ? "Destino:" : "Parada:"  %> <%= stop["address"] %></h5>
+            <% end %>
+          <% end %>
+
         </div>
         <div class="card-footer text-muted">
           <%= booking_status_span_generator @response["status_cd"] %>
