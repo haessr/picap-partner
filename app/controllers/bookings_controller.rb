@@ -15,7 +15,7 @@ class BookingsController < ApplicationController
   end
 
   def local_records
-    @bookings = Booking.all
+    @bookings = Booking.all.reverse
   end
 
   # GET /bookings/1 or /bookings/1.json
