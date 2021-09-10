@@ -5,11 +5,23 @@ class Booking
   field :reference, type: String
   field :log, type: String
 
+  def self.get_booking(id)
+    response = RestClient.get("https://sandbox.picap.co/api/third/bookings/#{id}?t=#{ENV["PICAP_TOKEN"]}")
+    JSON.parse(response)
+  end
+
+  def self.cancel_booking(id)
+    # https://sandbox.picap.co/api/third/bookings/613a2a67d958cf001e50db81/cancelt=Fbkhf9T9YeuLkrA-RF1lPWca6LtC37hqedwnR09BwAW64tVUqB6fvQ
+    response = RestClient.patch("https://sandbox.picap.co/api/third/bookings/#{id}/cancel?t=#{ENV["PICAP_TOKEN"]}", nil)
+    JSON.parse(response)
+  end
+
   def self.get_bookings
     data_array = []
     current_page = 1
-    response = RestClient.get("https://sandbox.picap.co/api/third/bookings?&t=#{ENV["PICAP_TOKEN"]}")
+    response = RestClient.get("https://sandbox.picap.co/api/third/bookings?t=#{ENV["PICAP_TOKEN"]}")
     response_json = JSON.parse(response)
+
     while current_page <= response_json["pages"]
       request = RestClient.get("https://sandbox.picap.co/api/third/bookings?page=#{current_page}&t=#{ENV["PICAP_TOKEN"]}")
       hash = JSON.parse(request)
@@ -18,6 +30,7 @@ class Booking
       end
       current_page += 1
     end
+
     data_array
   end
 

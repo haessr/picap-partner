@@ -1,19 +1,22 @@
 <p id="notice"><%= notice %></p>
+<div class="container">
+    <%= link_to 'Back', bookings_path %>
+  <div class="row d-flex justify-content-center">
+    <div class="col-sm-6">
+      <div class="card text-center">
+        <div class="card-header">
+          Detalles del servicio <strong><%= @response["_id"] %></strong>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Origen: <%= @response["address"] %></h5>
+          <h5 class="card-title">Destino: <%= @response["stops"][0]["address"] %></h5>
+        </div>
+        <div class="card-footer text-muted">
+          <%= booking_status_span_generator @response["status_cd"] %>
+        </div>
+      </div>
+    </div>
+    <%= @response %>
 
-<p>
-  <strong>Picap:</strong>
-  <%= @booking.picap_id %>
-</p>
-
-<p>
-  <strong>Log:</strong>
-  <%= @booking.log %>
-</p>
-
-<p>
-  <strong>Reference:</strong>
-  <%= @booking.reference %>
-</p>
-
-<%= link_to 'Edit', edit_booking_path(@booking) %> |
-<%= link_to 'Back', bookings_path %>
+  </div>
+</div>

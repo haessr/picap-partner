@@ -1,5 +1,5 @@
 class BookingsController < ApplicationController
-  before_action :set_booking, only: %i[ show edit update destroy ]
+  before_action :set_booking, only: %i[ show edit update destroy]
   # include PicapRequest
   # before_action :new_booking_request
 
@@ -8,7 +8,6 @@ class BookingsController < ApplicationController
     @bookings = Booking.all
     begin
       @response = Booking.get_bookings
-    # rescue RestClient::UnprocessableEntity => e
     rescue RestClient::Exception => exception
       @error = exception.response
     end
@@ -17,6 +16,24 @@ class BookingsController < ApplicationController
 
   # GET /bookings/1 or /bookings/1.json
   def show
+    begin
+      @response = Booking.get_booking(params[:id])
+    rescue RestClient::Exception => exception
+      @error = exception.response
+    end
+  end
+
+  # GET /cancel_booking/1
+  def cancel_booking
+    begin
+      @response = Booking.cancel_booking(params[:id])
+    rescue RestClient::Exception => exception
+      @error = exception.response
+    end
+
+    # binding.pry
+    # redirect_to booking_url, id: params[:id]
+    redirect_to root_path
   end
 
   # GET /bookings/new
@@ -36,7 +53,6 @@ class BookingsController < ApplicationController
       @booking.log = @response
       @booking.picap_id = @response["_id"]
     rescue RestClient::Exception => exception
-      # @error = exception.response
       @booking.log = exception.response
     end
 
