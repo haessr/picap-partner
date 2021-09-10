@@ -1,1 +1,1 @@
-<%= render 'local_bookings' %>
+<%= render_partial_if(@bookings, 'local_bookings', 'No existen registros')  %>

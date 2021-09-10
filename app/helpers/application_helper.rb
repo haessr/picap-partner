@@ -5,9 +5,11 @@ module ApplicationHelper
     end
   end
 
-  def render_partial_if(condition, partial_path)
+  def render_partial_if(condition, partial_path, msg = '')
     if condition
       render partial_path
+    else
+      msg
     end
   end
 end
