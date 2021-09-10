@@ -26,6 +26,8 @@ module BookingsHelper
         content_tag(:span, 'Expirado, no se encontró conductor', class: 'badge rounded-pill bg-dark')
       when 109
         content_tag(:span, 'Programado', class: 'badge bg-light text-dark')
+      else
+        content_tag(:span, 'Cancelado por operaciones', class: 'badge rounded-pill bg-danger')
       end
     end
 end
