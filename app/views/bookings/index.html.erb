@@ -29,3 +29,13 @@
 <br>
 
 <%= link_to 'New Booking', new_booking_path %>
+
+<h1>Lista de Servicios Solicitados</h1>
+
+<% if @error %>
+  <%= @error %>
+<% end %>
+
+<% if @response %>
+  <%= @response %>
+<% end %>

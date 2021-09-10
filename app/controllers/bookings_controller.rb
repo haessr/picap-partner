@@ -9,8 +9,8 @@ class BookingsController < ApplicationController
     begin
       @response = Booking.get_bookings
     # rescue RestClient::UnprocessableEntity => e
-    rescue => e
-      @response
+    rescue RestClient::Exception => exception
+      @error = exception.response
     end
     # binding.pry
   end
@@ -31,9 +31,15 @@ class BookingsController < ApplicationController
   # POST /bookings or /bookings.json
   def create
     @booking = Booking.new(booking_params)
-    @response = Booking.create_booking(booking_options)
-    @booking.log = @response
-    @booking.picap_id = @response["_id"]
+    begin
+      @response = Booking.create_booking(booking_options)
+      @booking.log = @response
+      @booking.picap_id = @response["_id"]
+    rescue RestClient::Exception => exception
+      # @error = exception.response
+      @booking.log = exception.response
+    end
+
     respond_to do |format|
       if @booking.save
         format.html { redirect_to root_path, notice: "Booking was successfully created." }

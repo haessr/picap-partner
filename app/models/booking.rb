@@ -6,8 +6,19 @@ class Booking
   field :log, type: String
 
   def self.get_bookings
-    response = RestClient.get("https://sandbox.picap.co/api/third/bookings?t=#{ENV["PICAP_TOKEN"]}")
-    JSON.parse(response)
+    data_array = []
+    current_page = 1
+    response = RestClient.get("https://sandbox.picap.co/api/third/bookings?&t=#{ENV["PICAP_TOKEN"]}")
+    response_json = JSON.parse(response)
+    while current_page <= response_json["pages"]
+      request = RestClient.get("https://sandbox.picap.co/api/third/bookings?page=#{current_page}&t=#{ENV["PICAP_TOKEN"]}")
+      hash = JSON.parse(request)
+      hash["data"].each do |item|
+        data_array.push(item)
+      end
+      current_page += 1
+    end
+    data_array
   end
 
   def self.create_booking(options)
@@ -16,8 +27,8 @@ class Booking
      booking: {
        address: options[:address_1],
         secondary_address: "Grifo Repsol 100",
-        lat: options[:lat_1].to_f,
-        lon: options[:lon_1].to_f,
+        lat: options[:lat_1],
+        lon: options[:lon_1],
         requested_service_type_id: "5c71b03a58b9ba10fa6393cf",
         return_to_origin: false,
         requires_a_driver_with_base_money: false,
@@ -26,8 +37,8 @@ class Booking
            {
              address: options[:address_2],
               secondary_address: "Cruce Av. Universitaria",
-              lat: options[:lat_2].to_f,
-              lon: options[:lon_2].to_f,
+              lat: options[:lat_2],
+              lon: options[:lon_2],
               customer: {
                 name: "Cliente",
                 country_code: "57",
