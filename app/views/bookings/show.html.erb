@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Picap:</strong>
+  <%= @booking.picap_id %>
+</p>
+
+<p>
+  <strong>Log:</strong>
+  <%= @booking.log %>
+</p>
+
+<p>
+  <strong>Reference:</strong>
+  <%= @booking.reference %>
+</p>
+
+<%= link_to 'Edit', edit_booking_path(@booking) %> |
+<%= link_to 'Back', bookings_path %>
